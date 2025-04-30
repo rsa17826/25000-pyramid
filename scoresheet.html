@@ -1,0 +1,231 @@
+<script src="./libloader.user.js"></script>
+<script src="./allfuncs.user.js"></script>
+<script src="./indexeddb ls.user.js"></script>
+<style>
+  #playerContainer {
+    display: flex;
+    flex-direction: row;
+  }
+  button,
+  input {
+    background-color: #777;
+    color: #000;
+    box-sizing: border-box;
+    padding: 0.25em;
+    border: 2px solid #000;
+  }
+  button {
+    border-radius: 10px;
+  }
+  ::placeholder {
+    color: #000;
+  }
+  body,
+  head,
+  html {
+    background-color: #777;
+  }
+  #score {
+    border: 3px solid #000;
+  }
+  #score > .img {
+    width: 30px;
+    height: 30px;
+  }
+</style>
+<body>
+  <button id="toggleLock"></button>
+  <div id="playerContainer"></div>
+</body>
+<script>
+  const a = loadlib("allfuncs")
+  a.qs("#playerContainer").appendChild(newPlayer())
+  a.qs("#toggleLock").onclick = () => {
+    window.lockPrevInps = !window.lockPrevInps
+    if (window.lockPrevInps) {
+      a.qs("#toggleLock").innerHTML =
+        "\u{1f512} inputs will be locked after use - rclick any input to temporarily unlock"
+      a.qsa("input").forEach((e) => {
+        if (e.value === "") return
+        e.disabled = true
+        updateLockStatus(e)
+      })
+    } else {
+      a.qs("#toggleLock").innerHTML =
+        "\u{1f513} all inputs will always be unlocked"
+      a.qsa("[disabled]").map((e) => {
+        e.disabled = false
+        updateLockStatus(e)
+      })
+    }
+  }
+  window.lockPrevInps = true
+  a.qs("#toggleLock").onclick()
+  a.qs("#toggleLock").onclick()
+  function newPlayer() {
+    var column = a.qs("#playerContainer")
+    return a.newelem(
+      "div",
+      {
+        display: "flex",
+        id: "playerScoreColumn",
+        flexDirection: "column",
+      },
+      [
+        a.newelem("input", {
+          placeholder: `player ${a.qsa("input#r").length + 1} name`,
+          id: "r",
+          oninput() {
+            if (a.qsa("input#r").at(-1) == this) {
+              this.parentElement.parentElement.appendChild(
+                newPlayer(this.parentElement)
+              )
+            } else {
+              if (
+                this.value == "" &&
+                a.qsa("input#r").at(-1).value == ""
+              ) {
+                if (a.qsa("input#r").at(-2) == this) {
+                  a.qsa("input#r").at(-1).parentElement.remove()
+                } else {
+                  this.parentElement.remove()
+                }
+              }
+            }
+            recalcScore()
+          },
+          onchange() {
+            if (lockPrevInps) {
+              this.disabled = true
+              updateLockStatus(this)
+            }
+          },
+          onblur() {
+            if (lockPrevInps && this.value) {
+              this.disabled = true
+              updateLockStatus(this)
+            }
+          },
+          oncontextmenu(e) {
+            e.preventDefault()
+            this.disabled = false
+            this.select()
+            updateLockStatus(this)
+          },
+        }),
+        newScoreSlot(column),
+        a.newelem("span", { id: "score" }, [
+          a.newelem("img", { class: "img" }),
+          a.newelem("span", {
+            class: "text",
+          }),
+        ]),
+      ]
+    )
+  }
+  recalcScore()
+  function updateLockStatus(e) {
+    e.style.backgroundColor = e.disabled ? "#a77" : "#777"
+  }
+  function newScoreSlot(column) {
+    return a.newelem("input", {
+      column,
+      id: "c",
+      placeholder: `score ${a.qsa("input#c", column).length + 1}`,
+      type: "number",
+      oninput() {
+        recalcScore(this.parentElement)
+        if (islast(this, this.parentElement)) {
+          this.parentElement.insertBefore(
+            newScoreSlot(this.column),
+            a.qs("#score", this.parentElement)
+          )
+        }
+      },
+      onchange() {
+        if (lockPrevInps) {
+          a.qsa("input#c", this.parentElement).map((e, i) => {
+            e.disabled =
+              i < a.qsa("input#c", this.parentElement).length - 1
+            updateLockStatus(e)
+          })
+        }
+      },
+      onblur() {
+        if (lockPrevInps && this.value) {
+          this.disabled = true
+          updateLockStatus(this)
+        }
+      },
+      oncontextmenu(e) {
+        e.preventDefault()
+        this.disabled = false
+        this.select()
+        updateLockStatus(this)
+      },
+    })
+    function islast(thing, column) {
+      var arr = a.qsa("input#c", column)
+      return arr[arr.length - 1] == thing
+    }
+  }
+  function recalcScore() {
+    var scores = []
+    for (var elem of a.qsa("#playerScoreColumn")) {
+      var score = a
+        .qsa("input#c", elem)
+        .map((e) => Number(e.value || 0) || 0)
+        .reduce((s, d) => s + d)
+      a.qs("#score", elem).score = score
+      scores.push({
+        elem,
+        score,
+      })
+    }
+    scores.sort((a, b) => b.score - a.score)
+
+    var i = 0
+    var lastScore
+    var inARow = 0
+    var placeNames = [
+      "first",
+      "second",
+      "third",
+      "fourth",
+      "fifth",
+      "sixth",
+      "seventh",
+      "eighth",
+      "ninth",
+      "tenth",
+    ]
+    var images = [
+      "1.png",
+      "2.png",
+      "3.png",
+      "4.png",
+      "5.png",
+      "6.png",
+      "7.png",
+      "8.png",
+      "9.png",
+      "10.png",
+    ]
+    scores.pop()
+    for (var { elem, score } of scores) {
+      if (lastScore === score) {
+        inARow++
+      } else {
+        inARow = 0
+      }
+      lastScore = score
+      a.qs("#score>.img", elem).src = images[i - inARow]
+      a.qs("#score>.text", elem).innerHTML = `${
+        a.qs("input#r", elem).value
+      }: ${placeNames[i - inARow]} place<br> with score of ${String(
+        score
+      ).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+      i++
+    }
+  }
+</script>

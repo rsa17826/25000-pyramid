@@ -1,0 +1,119 @@
+American League
+assist
+at bat
+athlete
+ball
+base
+base hit
+baseball
+baseball cap
+baserunning
+bases loaded
+bat
+batboy
+batter
+batting average
+batting team
+bullpen
+bunt
+card
+catch
+catcher
+center field
+center fielder
+champion
+club
+clutch hitter
+curveball
+deck
+defense
+designated hitter
+diamond
+double header
+dugout
+equipment
+error
+farm team
+fastball
+field
+fielder
+fielding team
+first
+fly ball
+foul
+foul ball
+game
+gear
+grand slam
+ground ball
+hardball
+helmet
+hits
+ho-hitter
+home
+home plate
+home run
+home team
+infield
+inning
+knuckleball
+league
+left field
+left hander
+line drive
+lineup
+lose
+Major League
+Minor League
+mitt
+mound
+MVP
+National League
+nine
+offense
+out
+outfield
+park
+pinch hitter
+pitch
+pitcher
+pitcher's mound
+RBI
+relief pitcher
+right field
+run
+safe
+saves
+score
+scoreboard
+second
+shortstop
+slide
+slugger
+softball
+spitball
+sport
+sportsmanship
+spring training
+stadium
+starting pitcher
+steal
+stolen
+strike
+strikeout
+sweet spot
+switch hitter
+tag
+team
+teammate
+third
+third base
+throw
+triple play
+umpire
+uniform
+vault
+visiting team
+walk
+wild pitch
+win

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>charCodeAt Example</title>
+    <style>
+      button,
+      input {
+        background-color: #777;
+        color: #000;
+        box-sizing: border-box;
+        padding: 0.25em;
+        border: 2px solid #000;
+      }
+      button {
+        border-radius: 10px;
+      }
+      ::placeholder {
+        color: #000;
+      }
+      body,
+      head,
+      html {
+        background-color: #777;
+      }
+      #inputString,
+      #charIndex {
+        height: 30px;
+      }
+      input {
+        field-sizing: content;
+        min-width: 40px;
+        min-height: 40px;
+        box-sizing: border-box;
+        margin: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Character Code Display</h1>
+    <input
+      type="text"
+      id="inputString"
+      placeholder="Enter a string"
+      value="&#128274;"
+    />
+    <input
+      type="number"
+      id="charIndex"
+      placeholder="Enter character index"
+      value="0"
+    />
+    <p id="result"></p>
+
+    <script>
+      document.getElementById("inputString").oninput =
+        document.getElementById("charIndex").oninput = function () {
+          const inputString =
+            document.getElementById("inputString").value
+          const charIndex = parseInt(
+            document.getElementById("charIndex").value,
+            10
+          )
+          const charCode = inputString.charCodeAt(charIndex)
+
+          if (!isNaN(charCode)) {
+            // Check if the character is part of a surrogate pair
+            if (charCode >= 0xd800 && charCode <= 0xdbff) {
+              // High surrogate
+              const lowSurrogate = inputString.charCodeAt(
+                charIndex + 1
+              )
+              if (lowSurrogate >= 0xdc00 && lowSurrogate <= 0xdfff) {
+                // Valid low surrogate found
+                const codePoint =
+                  (charCode - 0xd800) * 0x400 +
+                  (lowSurrogate - 0xdc00) +
+                  0x10000
+                const character = String.fromCodePoint(codePoint)
+                function toUnicodeEscape(codePoint) {
+                  return `\\\\u{${codePoint
+                    .toString(16)
+                    .padStart(4, "0")}}`
+                }
+                function toHtmlEntity(codePoint) {
+                  return `&amp;#${codePoint};`
+                }
+
+                document.getElementById(
+                  "result"
+                ).innerHTML = `Character: <input type="text" value="${character}" onclick="this.select()" /><br>Code Point: <input type="text" value="${codePoint}" onclick="this.select()" /><br>Unicode escape: <input type="text" value="${toUnicodeEscape(
+                  codePoint
+                )}" onclick="this.select()" /><br>html entity: <input type="text" value="${toHtmlEntity(
+                  codePoint
+                )}" onclick="this.select()" />`
+              } else {
+                document.getElementById(
+                  "result"
+                ).innerText = `High surrogate found<br>but no valid low surrogate.`
+              }
+            } else {
+              // Not a surrogate pair
+              document.getElementById(
+                "result"
+              ).innerText = `Character code at index ${charIndex}: ${charCode}`
+            }
+          } else {
+            document.getElementById("result").innerText =
+              "Invalid index or string."
+          }
+        }
+      document.getElementById("inputString").oninput()
+    </script>
+  </body>
+</html>

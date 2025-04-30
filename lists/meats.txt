@@ -1,0 +1,62 @@
+Antelope
+Bacon
+Beef
+Bison
+Blood Sausage
+Boar
+Bresaola
+Buffalo
+Burger
+Camel
+Capybara
+Chicken
+Chorizo
+Clams
+Cod
+Corned Beef
+Crab
+Duck
+Elk
+Fish
+Frog Legs
+Goat
+Guanciale
+Ham
+Kangaroo
+Kielbasa
+Lamb
+Liverwurst
+Lobster
+Meatball
+Merguez
+Mortadella
+Mussels
+Mutton
+Nduja
+Octopus
+Osso Buco
+Pastrami
+Pheasant
+Pork
+Poultry
+Prosciutto
+Rabbit
+Ribs
+Rillettes
+Salami
+Salmon
+Sausage
+Shrimp
+Squab
+Squid
+Suckling Pig
+Tasso Ham
+Tongue
+Trout
+Tuna
+Turkey
+Veal
+Venison
+Wagyu Beef
+Wild Boar
+Wild Turkey

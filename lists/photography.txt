@@ -1,0 +1,80 @@
+ambient light
+aperture
+autofocus
+backlighting
+black-and-white
+camera
+close up
+color
+composition
+contrast
+crop
+cropping
+darkroom
+density
+depth of field
+depth of focus
+developer
+digital
+digital camera
+disk
+double exposure
+enlargement
+enlarger
+exposure
+f-number
+f-stop
+film
+film speed
+filter
+finder
+fish-eye lens
+fixed-focus lens
+flash
+focus
+frontlighting
+graininess
+high contrast
+image
+latent image
+lens
+light
+light meter
+lighting
+motor drive
+negative
+overexposure
+panorama
+parallax
+photo
+photogenic
+photograph
+photographer
+photographic
+photography
+picture
+polarizing screen
+positive
+print
+processing
+rangefinder
+reflector
+retouch
+shutter
+shutter speed
+sidelighting
+single-lens-reflex camera
+slide
+SLR camera
+snapshot
+soft focus
+stopping down
+telephoto lens
+time exposure
+tone
+tripod
+underexposure
+unipod
+viewfinder
+wide-angle lens
+zoom lens

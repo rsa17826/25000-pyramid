@@ -1,0 +1,22 @@
+acorn
+almond
+beechnut
+Brazil nut
+breadnut
+candlenut
+cashew
+chestnut
+coconut
+filbert
+hazelnut
+hickory nut
+kola nut
+macadamia
+noisette
+nut
+peanut
+pecan
+pine nut
+pinyon
+pistachio
+walnut

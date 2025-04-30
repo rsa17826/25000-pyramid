@@ -1,0 +1,151 @@
+<script src="./libloader.user.js"></script>
+<script src="./allfuncs.user.js"></script>
+<script src="./indexeddb ls.user.js"></script>
+<style>
+  button,
+  input {
+    background-color: #777;
+    color: #000;
+  }
+
+  body,
+  head,
+  html {
+    background-color: #777;
+  }
+</style>
+<button id="loadAllWordLists">setup</button>
+<button id="startGame">start</button>
+<h2 class="wordCount"></h2>
+<br />
+<div class="word"></div>
+
+<script>
+  const a = loadlib("allfuncs")
+  ;(async () => {
+    const ls = await loadlib("indexeddb ls")("pyrimid")
+    window.ls = ls
+    if (ls.folder) {
+      await a.getfileperms(ls.folder)
+      await setup()
+    }
+    a.qs("#loadAllWordLists").onclick = async (e) => {
+      ls.folder = await a.getfolder(false)
+      setup()
+    }
+    a.qs("#startGame").onclick = async (e) => {
+      window.chosenCats = []
+      for (var i = 0; i < 6; i++) {
+        var selected = poprand(loadedData)
+        chosenCats.push([selected.name, get7words(selected.text)])
+      }
+      showui()
+    }
+    function showui() {
+      var dist = 800
+      var padding = 10
+      var offsetY = 100
+      var offsetX = 10
+      var size = dist / 3 - padding * 2
+      a.qsa("#cat").forEach((e) => e.remove())
+      var alldata = {
+        width: size + "px",
+        height: size + "px",
+        backgroundColor: "#333",
+        position: "absolute",
+        id: "cat",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        innerHTML: "<h2></h2>",
+        textShadow: "0 0 15px white",
+        onclick(e) {
+          showCat(chosenCats[this.catid][1])
+          this.style.textShadow = "0 0 15px red"
+          this.onclick = null
+        },
+      }
+
+      a.createelem(document.body, "div", {
+        ...alldata,
+        top: offsetY + "px",
+        left: offsetX + dist / 3 + "px",
+      })
+      a.createelem(document.body, "div", {
+        ...alldata,
+        top: offsetY + dist / 3 + "px",
+        left: offsetX + dist / 3 / 2 + "px",
+      })
+      a.createelem(document.body, "div", {
+        ...alldata,
+        top: offsetY + dist / 3 + "px",
+        left: dist / 3 + dist / 3 / 2 + "px",
+      })
+      a.createelem(document.body, "div", {
+        ...alldata,
+        top: offsetY + (dist / 3) * 2 + "px",
+        left: offsetX + "px",
+      })
+      a.createelem(document.body, "div", {
+        ...alldata,
+        top: offsetY + (dist / 3) * 2 + "px",
+        left: offsetX + dist / 3 + "px",
+      })
+      a.createelem(document.body, "div", {
+        ...alldata,
+        top: offsetY + (dist / 3) * 2 + "px",
+        left: offsetX + (dist / 3) * 2 + "px",
+      })
+      a.qsa("#cat").forEach((e, i) => {
+        a.qs("h2", e).textContent = chosenCats[i][0]
+          .replace(/[\-_]/g, " ")
+          .replace(/ +/, " ")
+        e.catid = i
+      })
+    }
+    function showCat(cat) {
+      a.qs(".wordCount").innerText = cat.join("\n")
+    }
+    function reroll(idx) {
+      var selected = poprand(loadedData)
+      chosenCats[idx] = [selected.name, get7words(selected.text)]
+    }
+
+    async function setup() {
+      var files = []
+      for await (var [name, file] of ls.folder.entries()) {
+        if (file instanceof FileSystemFileHandle) {
+          files.push({
+            name: name.replace(/\.txt$/, ""),
+            text: getLines(await a.readfile(await file.getFile())),
+          })
+        }
+      }
+      files = files.filter((e) => e.text.length >= 7)
+      document.querySelector(
+        ".wordCount"
+      ).innerText = `loaded ${files.length} wordlists`
+      window.loadedData = files
+    }
+
+    function getLines(data) {
+      var lines = data.split("\n").map((e) => e.trim())
+      document.querySelector(".wordCount").innerText =
+        lines.length + " words"
+      return lines
+    }
+    function get7words(list) {
+      var shown = []
+      for (var i = 0; i < 7; i++) {
+        shown.push(poprand(list))
+      }
+      return shown
+    }
+    function poprand(arr) {
+      var idx = a.randfrom(0, arr.length - 1)
+      var selected = arr[idx]
+      arr.splice(idx, 1)
+      return selected
+    }
+  })()
+</script>

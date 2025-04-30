@@ -1,0 +1,75 @@
+alloy
+aluminum
+antimony
+beryllium
+bismuth
+brass
+bronze
+chrome
+chromium
+copper
+cupronickel
+Damascus steel
+deoxidized copper
+duralumin
+electrum
+enameled copper
+europium
+ferrite
+ferroalloy
+ferrosilicon
+galvanized steel
+German silver
+gold
+gunmetal
+hafnium
+hastelloy
+high-speed steel
+inconel
+iridium
+iron
+jewelry-grade gold
+kanthal
+kovar
+kryptonite (fictional but fun!)
+lead
+liquid metal
+lithium
+magnesium
+mercury
+metal
+nickel
+niobium
+nitinol
+orichalcum (historical/mythological)
+osmium
+oxidized silver
+palladium
+pewter
+platinum
+quenched steel
+quicksilver (another name for mercury)
+red brass
+rhodium
+rolled steel
+silver
+stainless steel
+steel
+tin
+titanium
+tungsten
+uranium
+vanadium
+vibration-damping alloy
+vitallium
+white gold
+wolfram (another name for tungsten)
+wrought iron
+x-metal (used in Oakley eyewear frames)
+y alloy
+yellow brass
+yellow gold
+yttrium
+zamac
+zinc
+zirconium

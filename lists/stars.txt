@@ -1,0 +1,56 @@
+A-type Star
+Algol Variable
+B-type Star
+Be Star
+Binary Stars
+Blue Giant
+Blue Supergiant
+Brown Dwarf
+C-type star
+Carbon Star
+Cataclysmic Variable
+Cepheid Variable
+Cool Star
+Detached Binary
+Dwarf Star
+Early-Type Star
+Eclipsing Binary
+F-type Star
+Flare Star
+G-type Star
+Giant Star
+Herbig Ae/Be Star
+Hypergiant
+Intergalactic Star
+Intermediate-Mass Star
+Iron Star
+K Giant Star
+K Supergiant
+K-type Star
+L-type Star
+Late-Type Star
+Luminous Blue Variable
+M-type Star
+Magnetar
+Main Sequence Star
+Neutron Star
+Nova
+O Supergiant
+O-type Star
+Pre-Main-Sequence Star
+Protostar
+Pulsar
+Red Dwarf
+Red Giant
+Red Supergiant
+Red-Main-Sequence Star
+Rogue Star
+S Supergiant
+S-type Star
+Subgiant Star
+Supernova
+T-Tauri Star
+White Dwarf
+White Supergiant
+Wolf-Rayet Star
+Yellow Dwarf

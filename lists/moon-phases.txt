@@ -1,0 +1,8 @@
+1. New moon
+2. Waxing crescent
+3. First quarter ("half moon")
+4. Waxing gibbous
+5. Full moon
+6. Waning gibbous
+7. Third quarter ("half moon")
+8. Waning crescent
