@@ -1,6 +1,7 @@
 # setup
 - open [index.html](index.html)
   - click setup
+    - if this doesn't work make sure you can use showDirectoryPicker
   - select the folder containing the wordlists
   - click start to generate the pyramid
   - click the box to show the words in the box
