@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         lib:allfuncs
-// @version      24
+// @version      25
 // @description  none
 // @run-at       document-start
 // @author       rssaromeo
@@ -1861,8 +1861,7 @@
         )
       })
     },
-    function ({ end, args: [fileHandle, readWrite], maketype }) {
-      readWrite = maketype(readWrite, ["boolean", "undefined"]) // Ensure readWrite is a boolean or undefined
+    function ({ end, args: [] }) {
       return end()
     }
   )
