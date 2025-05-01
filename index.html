@@ -22,7 +22,56 @@
 <div class="word"></div>
 
 <script>
+  class Timer {
+    constructor() {
+      this.prevTime = performance.now()
+      this.pauseTime = performance.now()
+      this.pauseTime = 0
+      this.paused = true
+      Object.defineProperty(this, "time", {
+        get: () => {
+          this.update(Reflect.get(this, "_time"))
+          return Reflect.get(this, "_time")
+        },
+        set: (time) => {
+          Reflect.set(this, "_time", time)
+        },
+      })
+      this.time = 0
+    }
+    getElapsed() {
+      return this.time
+    }
+    update(time) {
+      if (this.paused) {
+        return
+      }
+      var now = performance.now()
+      this.time = time + now - this.prevTime
+      this.prevTime = now
+    }
+    restart() {
+      this.prevTime = performance.now()
+      this.time = 0
+      this.pauseTime = 0
+    }
+    stop() {
+      if (this.paused) {
+        return
+      }
+      this.update(Reflect.get(this, "_time"))
+      this.paused = true
+    }
+    start() {
+      if (!this.paused) {
+        return
+      }
+      this.paused = false
+      this.prevTime = performance.now()
+    }
+  }
   const a = loadlib("allfuncs")
+  window.timer = new Timer()
   ;(async () => {
     const ls = await loadlib("indexeddb ls")("pyrimid")
     window.ls = ls
@@ -130,6 +179,8 @@
     function showCat([name, words]) {
       ls.viewedLists[name].push(...words)
       a.qs(".wordCount").innerText = words.join("\n")
+      timer.reset()
+      timer.start()
     }
     function reroll(idx) {
       var selected = poprand(loadedData)
