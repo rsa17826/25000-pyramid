@@ -25,6 +25,7 @@
   ;(async () => {
     const ls = await loadlib("indexeddb ls")("pyrimid")
     window.ls = ls
+    ls.viewedLists ??= {}
     if (ls.folder) {
       await a.getfileperms(ls.folder)
       await setup()
@@ -35,6 +36,10 @@
     }
     a.qs("#startGame").onclick = async (e) => {
       window.chosenCats = []
+      if (loadedData.length < 6) {
+        return alert("You need to load at least 6 word lists")
+      }
+
       for (var i = 0; i < 6; i++) {
         var selected = poprand(loadedData)
         chosenCats.push([selected.name, get7words(selected.text)])
@@ -60,7 +65,8 @@
         innerHTML: "<h2></h2>",
         textShadow: "0 0 15px white",
         onclick(e) {
-          showCat(chosenCats[this.catid][1])
+          ls.viewedLists[chosenCats[this.catid][0]] ??= []
+          showCat(chosenCats[this.catid])
           this.style.textShadow = "0 0 15px red"
           this.onclick = null
         },
@@ -103,8 +109,9 @@
         e.catid = i
       })
     }
-    function showCat(cat) {
-      a.qs(".wordCount").innerText = cat.join("\n")
+    function showCat([name, words]) {
+      ls.viewedLists[name].push(...words)
+      a.qs(".wordCount").innerText = words.join("\n")
     }
     function reroll(idx) {
       var selected = poprand(loadedData)
@@ -117,7 +124,10 @@
         if (file instanceof FileSystemFileHandle) {
           files.push({
             name: name.replace(/\.txt$/, ""),
-            text: getLines(await a.readfile(await file.getFile())),
+            text: getLines(
+              file.name,
+              await a.readfile(await file.getFile())
+            ),
           })
         }
       }
@@ -128,8 +138,16 @@
       window.loadedData = files
     }
 
-    function getLines(data) {
-      var lines = data.split("\n").map((e) => e.trim())
+    function getLines(name, data) {
+      var lines = data
+        .split("\n")
+        .map((e) => e.trim())
+        .filter(
+          (e) =>
+            !(
+              ls.viewedLists[name.replace(/\.txt$/, "")] ?? []
+            ).includes(e)
+        )
       document.querySelector(".wordCount").innerText =
         lines.length + " words"
       return lines

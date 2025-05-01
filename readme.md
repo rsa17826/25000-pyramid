@@ -3,6 +3,12 @@
   - click setup
     - if this doesn't work make sure you can use showDirectoryPicker
   - select the folder containing the wordlists
+    - when returning to the page it will remember the folder you have selected
+  - when clicking start, it will choose 6 unique wordlists, and remove them from the list of available lists
+    - when reloading they will again become available to pick from
+  - when a word is shown, by clicking on a box, that word will not be a valid word to pick from that word list until all words are cleared by clicking the clear used words button
+    - this data is not cleared on reload
+  - if a wordlist has less than 7 words left unused it will not be treated as a valid wordlist, which will be shown by the loaded wordlists count shown when first loading in a new folder or reloading the page
   - click start to generate the pyramid
   - click the box to show the words in the box
 
@@ -12,3 +18,5 @@
 
 - the scoresheet will add each players scores and display each players totals and rank them accordingly
 - the scoresheet has icons for 1st, 2nd, and 3rd place
+
+- when adding custom word lists make sure that each word is on its own line inside a file called BOX_NAME.txt inside the selected folder
