@@ -301,6 +301,9 @@
         if (!this.canSkip && !isGood) {
           return
         }
+        if (timer.paused) {
+          return
+        }
         if (this.canSkip) {
           // remove all
           this.words[this.idx].classList.remove("unviewed")
