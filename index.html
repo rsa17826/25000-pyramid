@@ -17,6 +17,15 @@
 <button id="loadAllWordLists">setup</button>
 <button id="startGame">start</button>
 <button id="clearViewedWords">clear viewed words</button>
+<select name="timeupSound" id="timeupSound">
+  <option value="">none</option>
+  <option value="./sfx/timeup1.mp3">time up 1</option>
+  <option value="./sfx/timeup2.mp3">time up 2</option>
+  <option value="./sfx/timeup3.mp3">time up 3</option>
+  <option value="./sfx/timeup4.mp3">time up 4</option>
+  <option value="./sfx/timeup - bell.mp3">time up 5</option>
+  <option value="random">random</option>
+</select>
 <h1 class="timer"></h1>
 <h2 class="wordCount"></h2>
 <br />
@@ -79,7 +88,7 @@
     }
     formatTimeElapsed() {
       var minutes = Math.floor(this.time / 60000)
-      var seconds = ((this.time % 60000) / 1000).toFixed(0)
+      var seconds = Math.floor((this.time % 60000) / 1000)
       if (seconds < 10) {
         seconds = "0" + seconds
       }
@@ -130,12 +139,32 @@
         ? ""
         : timer.formatTimeLeft()
     },
-    2 * 1000,
-    () => {}
+    0.1 * 1000,
+    playTimeUpSound
   )
+  function playTimeUpSound() {
+    if (ls.timeup) {
+      new Audio(
+        ls.timeup == "random"
+          ? a.randfrom([
+              "./sfx/timeup1.mp3",
+              "./sfx/timeup2.mp3",
+              "./sfx/timeup3.mp3",
+              "./sfx/timeup4.mp3",
+              "./sfx/timeup - bell.mp3",
+            ])
+          : ls.timeup
+      ).play()
+    }
+  }
+  a.qs("#timeupSound").onchange = (e) => {
+    ls.timeup = e.target.value
+    playTimeUpSound()
+  }
   ;(async () => {
     const ls = await loadlib("indexeddb ls")("pyrimid")
     window.ls = ls
+    a.qs("#timeupSound").value = ls.timeup ??= "./sfx/timeup1.mp3"
     ls.viewedLists ??= {}
     if (ls.folder) {
       try {
