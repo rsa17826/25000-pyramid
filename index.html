@@ -80,6 +80,14 @@
           this.style.textShadow = "0 0 15px red"
           this.onclick = null
         },
+        oncontextmenu(e) {
+          e.preventDefault()
+          if (confirm("show example?")) {
+            a.qs(".word").textContent = poprand(
+              chosenCats[this.catid][1]
+            )
+          }
+        },
       }
 
       a.createelem(document.body, "div", {

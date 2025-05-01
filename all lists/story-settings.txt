@@ -1,0 +1,172 @@
+Abandoned Warehouse
+Airport
+Alien Planet
+Alley
+Amusement Park
+Ancient Library
+Ancient Ruins
+Aquarium
+Arcade
+Art Gallery
+Art Studio
+Astronaut Training Facility
+Attic
+Aviary
+Bakery
+Ballpark
+Bank Vault
+Barbershop
+Barn
+Basement
+Battlefield
+Beach
+Beach House
+Bell Tower
+Bird Sanctuary
+Boardwalk
+Bonfire
+Bookstore
+Botanical Garden
+Bowling Alley
+Brewery
+Bridge
+Bunker
+Bus Station
+Cabin in the Woods
+Camp
+Canal
+Caravan
+Carnival
+Casino
+Castle
+Cave
+Cavern
+Cemetery
+Church
+Circus
+City
+Clock Tower
+Coastal Cliffs
+Coffee House
+College Campus
+Coral Reef
+Cottage
+Countryside
+Courthouse
+Courtroom
+Crystal Cave
+Daycare
+Desert
+Diner
+Dojo
+Dragon’s Lair
+Dungeon
+Dystopian World
+Eatery
+Egyptian Pyramids
+Elevator
+Estuary
+Factory
+Fairy Glade
+Farm
+Fishing Village
+Floating Island
+Forest
+Frozen Tundra
+Galaxy
+Gallows
+Garage Sale
+Garden
+Giant's Castle
+Graveyard
+Greenhouse
+Harbor
+Haunted House
+High School
+Hospital
+Hot Springs
+Hotel Room
+Ice Cave
+Igloo
+Industrial Factory
+International Space Station
+Interstellar Ark
+Island
+Jungle
+Junkyard
+Kitchen
+Laboratory
+Labyrinth
+Lake House
+Library
+Lighthouse
+Lighthouse Keeper's Cottage
+Mall
+Mansion
+Marina
+Market
+Maze
+Meadow
+Medieval Castle
+Military Base
+Miner's Camp
+Monastery
+Moon Base
+Motel
+Mountain
+Movie Theatre
+Museum
+Nature Hike
+Night Club
+Oasis
+Observatory
+Ocean Floor
+Outer Space
+Pagoda
+Palace
+Park
+Pirate Ship
+Playground
+Pool Hall
+Post-Apocalyptic World
+Prison
+Pub
+Quarry
+Rainforest
+Ranch
+Restaurant
+Robot Factory
+Rooftop
+School
+Secret Laboratory
+Shopping Mall
+Ski Resort
+Small Town
+Snowy Mountain Peak
+Space Station
+Spaceship
+Sporting Event
+Submarine
+Swamp
+Taxi Cab
+Temple
+Theatre
+Train Station
+Treehouse
+Underground
+Underwater
+Underwater City
+Victorian City
+Video Arcade
+Village
+Vineyard
+Virtual Reality World
+Volcano
+Waiting Room
+War Zone
+Water Park
+Waterfall
+White House
+Woods
+Yacht Party
+Zoo

@@ -1,0 +1,71 @@
+American Cheese
+Asiago
+Bel Paese
+Blue Cheese
+Boursault
+Boursin
+Brie
+Cabrales
+Caerphilly
+Cambozola
+Camembert
+Cheddar
+Chèvre
+Colby
+Colby-Jack
+Comté
+Cottage Cheese
+Cream Cheese
+Danish Blue
+Double Gloucester
+Dunlop
+Edam
+Emmental
+Feta
+Fondue
+Fontina
+Gjetost
+Gloucester
+Goat cheese
+Gorgonzola
+Gouda
+Gruyère
+Halloumi
+Havarti
+Iberico
+Jarlsberg
+Kasseri
+Limburger
+Manchego
+Manouri
+Maroilles
+Mascarpone
+Monterey Jack
+Mozzarella
+Munster
+Neufchâtel
+Ossau-Iraty
+Panela
+Parmesan
+Pecorino
+Pepper Jack
+Pouligny-Saint-Pierre
+Provolone
+Queso Blanco
+Queso de Bola
+Queso Fresco
+Red Leicester
+Red Windsor
+Ricotta
+Romano
+Roquefort
+Stilton
+String Cheese
+Swiss Cheese
+Taleggio
+Ubriaco
+Valdeon
+Wensleydale
+Xynotyro
+Yarg
+Zamorano

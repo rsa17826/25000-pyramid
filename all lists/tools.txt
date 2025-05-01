@@ -1,0 +1,136 @@
+adze
+Allen wrench
+anvil
+axe
+bellows
+bevel
+block and tackle
+block plane
+bolt
+bolt cutter
+brad
+brush
+calipers
+carpenter
+chalk line
+chisel
+circular saw
+clamp
+clippers
+coping saw
+countersink
+crowbar
+cutters
+drill
+drill bit
+drill press
+edger
+electric drill
+engraving tool
+extension cord
+fastener
+file
+flange spreader
+fret saw
+glass cutter
+glue
+glue gun
+grinder
+hacksaw
+hammer
+handsaw
+hex wrench
+hoe
+hone
+impact driver
+infrared thermometer
+insulation knife
+jackhammer
+jeweler’s pliers
+jig
+jigsaw
+keyhole saw
+knee pads (protective tool)
+knife
+ladder
+lathe
+level
+lever
+machete
+mallet
+measuring tape
+miter box
+monkey wrench
+nail
+nail set
+needle-nose pliers
+nut
+offset screwdriver
+oiler
+oscillating multi-tool
+Phillips screwdriver
+pickaxe
+pin
+pincer
+pinch
+pitchfork
+plane
+pliers
+plow
+plumb bob
+poker
+pruning shears
+pry bar
+pulley
+putty knife
+quick-grip clamp
+quick-release wrench
+rasp
+ratchet
+razor
+reamer
+rivet
+roller
+rope
+router
+ruler
+safety glasses
+sand paper
+sander
+saw
+sawhorse
+scalpel
+scissors
+scraper
+screw
+screwdriver
+scythe
+sharpener
+shovel
+sickle
+snips
+spade
+spear
+sponge
+square
+squeegee
+staple
+stapler
+tack
+tiller
+tongs
+toolbox
+toolmaker
+torch
+trowel
+ultrasonic cleaner
+utility knife
+vise
+voltage tester
+wedge
+wheel
+woodworker
+workbench
+wrench
+x-acto knife
+yardstick

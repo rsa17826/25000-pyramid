@@ -1,0 +1,80 @@
+Alloy
+Aluminum
+Anchor
+Anvil
+Armadillo
+Ash
+Battleship
+Boardwalk
+Boulder
+Brain
+Bullet
+Castle Wall
+Cement
+Chain
+Cloud
+Cobblestone
+Concrete
+Dolphin
+Duct Tape
+Dust
+Elephant
+Feather
+Fog
+Garbage Can
+Granite
+Gravel
+Gray Whale
+Greystone
+Gun
+Gunmetal
+Harpy Eagle
+Haze
+Hippopotamus
+Industrial Smokestack
+Iron
+Iron Gate
+Koala
+Lemur
+Manta Ray
+Metal
+Meteor
+Mist
+Moon
+Mouse
+Overcast Sky
+Oyster
+Pebble
+Pigeon
+Pill Bug
+Porpoise
+Rain Cloud
+Rhino
+Rock
+Rocket
+Sardine
+Seal
+Shark
+Shield
+Silver
+Silverback Gorilla
+Slate
+Slate Roof
+Smoke
+Snail
+Stapler
+Steel
+Stone
+Storm Cloud
+Stormy Sea
+Street
+Swordfish
+Tank
+Thundercloud
+Tornado
+Tungsten
+Walrus
+Weathervane
+Whale
+Wolf
+Zipper

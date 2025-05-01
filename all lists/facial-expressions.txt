@@ -1,0 +1,42 @@
+Beam
+Blank
+Blink
+Blush
+Chuckle
+Cringe
+Dimple
+Frown
+Gawk
+Giggle
+Glare
+Glower
+Goggle
+Grimace
+Grin
+Guffaw
+Laugh
+Leer
+Nod
+Nudge
+Pout
+Raise an eyebrow
+Roll your eyes
+Scowl
+Scrunch
+Shake your head
+Shrug
+Sigh
+Simper
+Smile
+Smirk
+Snarl
+Sneer
+Snicker
+Squint
+Stare
+Startle
+Stern
+Stick your tongue out
+Wince
+Wink
+Yawn
