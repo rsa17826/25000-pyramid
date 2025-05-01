@@ -10,7 +10,9 @@
     border: 1px solid #000;
     border-radius: 5px;
   }
-
+  #timerTime {
+    width: 40px;
+  }
   body,
   head,
   html {
@@ -29,6 +31,9 @@
   <option value="./sfx/timeup - bell.mp3">time up 5</option>
   <option value="random">random</option>
 </select>
+<label for="timerTime">timer time (seconds)</label>
+<input type="number" name="timerTime" id="timerTime" value="30" />
+
 <h1 class="timer"></h1>
 <h2 class="wordCount"></h2>
 
@@ -132,17 +137,6 @@
     }
   }
   const a = loadlib("allfuncs")
-  window.timer = new Timer(
-    () => {
-      a.qs(".timer").textContent = timer.expired
-        ? "Time's up!"
-        : timer.paused
-        ? ""
-        : timer.formatTimeLeft()
-    },
-    30 * 1000,
-    playTimeUpSound
-  )
   function playTimeUpSound() {
     if (ls.timeup) {
       new Audio(
@@ -166,6 +160,34 @@
     const ls = await loadlib("indexeddb ls")("pyrimid")
     window.ls = ls
     a.qs("#timeupSound").value = ls.timeup ??= "./sfx/timeup1.mp3"
+    window.timer = new Timer(
+      () => {
+        a.qs(".timer").textContent = timer.expired
+          ? "Time's up!"
+          : timer.paused
+          ? ""
+          : timer.formatTimeLeft()
+      },
+      (ls.timerTime ??= 30) * 1000,
+      playTimeUpSound
+    )
+    a.qs("#timerTime").value = ls.timerTime
+    a.listen(a.qs("#timerTime"), {
+      focus() {
+        this.select()
+      },
+      click() {
+        this.select()
+      },
+      input(e) {
+        timer.maxTime = (ls.timerTime = this.value) * 1000
+      },
+      contextmenu(e) {
+        e.preventDefault()
+        this.value = 30
+        this.dispatchEvent(new Event("input"))
+      },
+    })
     ls.viewedLists ??= {}
     if (ls.folder) {
       try {
@@ -186,6 +208,7 @@
     }
     a.qs("#startGame").onclick = async (e) => {
       window.chosenCats = []
+      window.loadedData ??= []
       if (loadedData.length < 6) {
         return alert("You need to load at least 6 word lists")
       }

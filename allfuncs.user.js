@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         lib:allfuncs
-// @version      25
+// @version      26
 // @description  none
 // @run-at       document-start
 // @author       rssaromeo
@@ -372,7 +372,7 @@
               type = a.matchall(type, /[a-z]+/g)
             type.forEach((type) => {
               const newcb = function (...e) {
-                cb(...e)
+                cb.call(elem, ...e)
               }
               elem.addEventListener(type, newcb, istrue)
               all.push([elem, type, newcb, istrue])
