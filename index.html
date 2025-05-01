@@ -3,9 +3,12 @@
 <script src="./indexeddb ls.user.js"></script>
 <style>
   button,
-  input {
+  input,
+  select {
     background-color: #777;
     color: #000;
+    border: 1px solid #000;
+    border-radius: 5px;
   }
 
   body,
@@ -28,8 +31,6 @@
 </select>
 <h1 class="timer"></h1>
 <h2 class="wordCount"></h2>
-<br />
-<div class="word"></div>
 
 <script>
   class Timer {
@@ -222,7 +223,7 @@
         oncontextmenu(e) {
           e.preventDefault()
           if (confirm("show example?")) {
-            a.qs(".word").textContent = poprand(
+            a.qs(".wordCount").textContent = poprand(
               chosenCats[this.catid][1]
             )
           }
