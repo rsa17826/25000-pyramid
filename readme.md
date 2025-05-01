@@ -1,7 +1,6 @@
 # setup
 
 - open [index.html](index.html)
-
   - click setup
     - if this doesn't work make sure you can use showDirectoryPicker
   - select the folder containing the wordlists
