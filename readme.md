@@ -1,5 +1,7 @@
 # setup
+
 - open [index.html](index.html)
+
   - click setup
     - if this doesn't work make sure you can use showDirectoryPicker
   - select the folder containing the wordlists
@@ -11,8 +13,15 @@
   - if a wordlist has less than 7 words left unused it will not be treated as a valid wordlist, which will be shown by the loaded wordlists count shown when first loading in a new folder or reloading the page
   - click start to generate the pyramid
   - click the box to show the words in the box
+    - after doing so, there will have 7 words appear on the left
+    - when the other person guesses a word correctly lclick the green button
+    - if you decide to pass rclick the green button
+    - the words must be guessed in order, the current word is highlighted in white, skipped words are highlighted in red, and correct words are highlighted in green
+    - if you skip words but reach the end with time left you will have a chance to retry the skipped words, but are unable to skip the words again
+  - you can set the time limit for each round by changing the time limit in the timer time input 
 
 - open the [scoresheet](./scoresheet.html)
+
   - add the players names in the top row
   - whenever a player scores add their score to the next box below their namme, after doing so the input will lock and spawn a new one below to continue adding scores
 
