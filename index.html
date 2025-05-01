@@ -18,6 +18,18 @@
   html {
     background-color: #777;
   }
+  word.passed {
+    text-shadow: 0 0 3px red;
+  }
+  word.guessed {
+    text-shadow: 0 0 3px green;
+  }
+  word.unviewed {
+    text-shadow: 0 0 3px black;
+  }
+  word.current {
+    text-shadow: 0 0 3px white !important;
+  }
 </style>
 <button id="loadAllWordLists">setup</button>
 <button id="startGame">start</button>
@@ -226,6 +238,7 @@
       var offsetX = 10
       var size = dist / 3 - padding * 2
       a.qsa("#cat").forEach((e) => e.remove())
+      a.qs("#markerBox")?.remove?.()
       var alldata = {
         width: size + "px",
         height: size + "px",
@@ -242,6 +255,9 @@
           showCat(chosenCats[this.catid])
           this.style.textShadow = "0 0 15px red"
           this.onclick = null
+          a.qs("#markerBox").idx = 0
+          a.qs("#markerBox").canSkip = true
+          a.qs("#markerBox").words = a.qsa(".wordCount>word")
         },
         oncontextmenu(e) {
           e.preventDefault()
@@ -253,6 +269,95 @@
         },
       }
 
+      a.createelem(document.body, "div", {
+        width: (size / 3) * 2 + "px",
+        height: (size / 3) * 2 + "px",
+        backgroundColor: "#353",
+        position: "absolute",
+        display: "flex",
+        id: "markerBox",
+        justifyContent: "center",
+        alignItems: "center",
+        idx: 0,
+        canSkip: true,
+        innerHTML:
+          "lclick to mark word as guessed<br><br>right click to mark word as skipped",
+        borderRadius: "20px",
+        onclick(e) {
+          e.preventDefault()
+          updateWord.call(this, true)
+        },
+        oncontextmenu(e) {
+          e.preventDefault()
+          updateWord.call(this, false)
+        },
+        top: offsetY + size / 3 / 2 + "px",
+        left: offsetX + size / 3 / 2 + (dist / 3) * 2 + "px",
+      })
+      function updateWord(isGood) {
+        if (!this.words) {
+          return
+        }
+        if (!this.canSkip && !isGood) {
+          return
+        }
+        if (this.canSkip) {
+          // remove all
+          this.words[this.idx].classList.remove("unviewed")
+          this.words[this.idx].classList.remove("passed")
+          this.words[this.idx].classList.remove("guessed")
+          this.words[this.idx].classList.remove("current")
+        }
+        // add new
+        this.words[this.idx].classList.add(
+          isGood ? "guessed" : "passed"
+        )
+        a.qsa(".wordCount>word").forEach((e) =>
+          e.classList.remove("current")
+        )
+        this.words[
+          (this.idx = (this.idx + 1) % this.words.length)
+        ].classList.add("current")
+        if (this.idx == 0) {
+          this.words.forEach((e) => e.classList.remove("current"))
+
+          this.canSkip = false
+          this.words = this.words.filter(
+            (e) => !e.classList.contains("guessed")
+          )
+          if (this.words[0]) this.words[0].classList.add("current")
+        }
+        log(this.idx)
+        if (this.words.length == 0) {
+          timer.stop()
+          a.qsa(".wordCount>word").forEach((e) =>
+            e.classList.remove("current")
+          )
+        }
+        // var startIdx = this.idx
+        // if (this.canSkip)
+        //   words[this.idx].classList.add(isGood ? "guessed" : "passed")
+        // else {
+        //   words[this.idx].classList.remove("passed")
+        //   while (
+        //     a.qs(".passed") &&
+        //     !words[this.idx].classList.contains("passed")
+        //   ) {
+        //     this.idx++
+        //   }
+        //   this.idx--
+        // }
+        // this.idx++
+        // if (this.idx > words.length - 1) {
+        //   this.idx = 0
+        //   this.canSkip = false
+        // }
+        // if (this.idx !== startIdx)
+        //   words[this.idx].style.textShadow = "0 0 15px white"
+        // else {
+        //   timer.stop()
+        // }
+      }
       a.createelem(document.body, "div", {
         ...alldata,
         top: offsetY + "px",
@@ -292,8 +397,12 @@
     }
     function showCat([name, words]) {
       ls.viewedLists[name].push(...words)
-      a.qs(".wordCount").innerText = words.join("\n")
-      timer.restart()
+      a.qs(".wordCount").innerHTML = `<word>${words.join(
+        "</word><br><word>"
+      )}</word>`
+      a.qs(".wordCount>word").classList.add("current")
+      a.qsa(".wordCount>word").map((e) => e.classList.add("unviewed"))
+      timer.reset()
       timer.start()
     }
     function reroll(idx) {
