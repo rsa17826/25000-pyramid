@@ -17,16 +17,22 @@
 <button id="loadAllWordLists">setup</button>
 <button id="startGame">start</button>
 <button id="clearViewedWords">clear viewed words</button>
+<h1 class="timer"></h1>
 <h2 class="wordCount"></h2>
 <br />
 <div class="word"></div>
 
 <script>
   class Timer {
-    constructor() {
+    constructor(tickCb, maxTime, expireCb) {
+      this.maxTime = maxTime || Infinity
+      this.expireCb = expireCb
+      this.tickCb = tickCb
+
+      if ((maxTime && expireCb) || tickCb) {
+        requestAnimationFrame(this.checkMaxTime.bind(this))
+      }
       this.prevTime = performance.now()
-      this.pauseTime = performance.now()
-      this.pauseTime = 0
       this.paused = true
       Object.defineProperty(this, "time", {
         get: () => {
@@ -37,12 +43,49 @@
           Reflect.set(this, "_time", time)
         },
       })
+      Object.defineProperty(this, "expired", {
+        get: () => {
+          return this.time >= this.maxTime
+        },
+        set: () => {},
+      })
       this.time = 0
     }
-    getElapsed() {
-      return this.time
+    checkMaxTime() {
+      requestAnimationFrame(this.checkMaxTime.bind(this))
+      if (this.paused && this.pausedLastFrame) {
+        return
+      }
+      if (this.time >= this.maxTime) {
+        this.pause()
+        this.expireCb()
+      }
+      if (this.tickCb) {
+        this.tickCb(this)
+      }
+      this.pausedLastFrame = this.paused
     }
-    update(time) {
+    formatTimeLeft() {
+      var minutes = Math.floor((this.maxTime - this.time) / 60000)
+      var seconds = ((this.maxTime - this.time) % 60000) / 1000
+      if (minutes == 0 && seconds <= 1) {
+        return minutes + ":0" + seconds.toFixed(2)
+      }
+      seconds = Math.ceil(seconds)
+      if (seconds < 10) {
+        seconds = "0" + seconds
+      }
+      return minutes + ":" + seconds
+    }
+    formatTimeElapsed() {
+      var minutes = Math.floor(this.time / 60000)
+      var seconds = ((this.time % 60000) / 1000).toFixed(0)
+      if (seconds < 10) {
+        seconds = "0" + seconds
+      }
+      return minutes + ":" + seconds
+    }
+    update(time = this.time) {
       if (this.paused) {
         return
       }
@@ -53,7 +96,15 @@
     restart() {
       this.prevTime = performance.now()
       this.time = 0
-      this.pauseTime = 0
+    }
+    reset() {
+      this.restart()
+    }
+    pause() {
+      this.stop()
+    }
+    resume() {
+      this.start()
     }
     stop() {
       if (this.paused) {
@@ -71,7 +122,17 @@
     }
   }
   const a = loadlib("allfuncs")
-  window.timer = new Timer()
+  window.timer = new Timer(
+    () => {
+      a.qs(".timer").textContent = timer.expired
+        ? "Time's up!"
+        : timer.paused
+        ? ""
+        : timer.formatTimeLeft()
+    },
+    2 * 1000,
+    () => {}
+  )
   ;(async () => {
     const ls = await loadlib("indexeddb ls")("pyrimid")
     window.ls = ls
@@ -179,7 +240,7 @@
     function showCat([name, words]) {
       ls.viewedLists[name].push(...words)
       a.qs(".wordCount").innerText = words.join("\n")
-      timer.reset()
+      timer.restart()
       timer.start()
     }
     function reroll(idx) {
