@@ -27,7 +27,12 @@
     window.ls = ls
     ls.viewedLists ??= {}
     if (ls.folder) {
-      await a.getfileperms(ls.folder)
+      try {
+        await a.getfileperms(ls.folder)
+      } catch (error) {
+        await a.waitforclick()
+        await a.getfileperms(ls.folder)
+      }
       await setup()
     }
     a.qs("#loadAllWordLists").onclick = async (e) => {

@@ -1829,10 +1829,37 @@
       if (readWrite) {
         options.mode = "readwrite"
       }
-      return (
-        (await fileHandle.queryPermission(options)) === "granted" ||
-        (await fileHandle.requestPermission(options)) === "granted"
-      )
+      try {
+        return (
+          (await fileHandle.queryPermission(options)) === "granted" ||
+          (await fileHandle.requestPermission(options)) === "granted"
+        )
+      } catch (e) {
+        await a.waitforclick()
+        return (
+          (await fileHandle.queryPermission(options)) === "granted" ||
+          (await fileHandle.requestPermission(options)) === "granted"
+        )
+      }
+    },
+    function ({ end, args: [fileHandle, readWrite], maketype }) {
+      readWrite = maketype(readWrite, ["boolean", "undefined"]) // Ensure readWrite is a boolean or undefined
+      return end()
+    }
+  )
+  a.waitforclick = newfunc(
+    async function waitforclick(fileHandle, readWrite) {
+      return new Promise((resolve) => {
+        var listener = a.listen(
+          window,
+          "click",
+          () => {
+            a.unlisten(listener)
+            resolve()
+          },
+          true
+        )
+      })
     },
     function ({ end, args: [fileHandle, readWrite], maketype }) {
       readWrite = maketype(readWrite, ["boolean", "undefined"]) // Ensure readWrite is a boolean or undefined
