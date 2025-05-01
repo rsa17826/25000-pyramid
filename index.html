@@ -130,17 +130,44 @@
 
     async function setup() {
       var files = []
+      // time("a")
+      // for await (var [name, file] of ls.folder.entries()) {
+      //   if (file instanceof FileSystemFileHandle) {
+      //     files.push(file.getFile())
+      //     files.push({
+      //       name: name.replace(/\.txt$/, ""),
+      //       text: getLines(
+      //         file.name,
+      //         await a.readfile(await file.getFile())
+      //       ),
+      //     })
+      //   }
+      // }
+      // timeEnd("a")
+      document.querySelector(".wordCount").innerText =
+        "LOADING WORDLISTS..."
+
+      // time("a")
+      var files = []
       for await (var [name, file] of ls.folder.entries()) {
         if (file instanceof FileSystemFileHandle) {
-          files.push({
-            name: name.replace(/\.txt$/, ""),
-            text: getLines(
-              file.name,
-              await a.readfile(await file.getFile())
-            ),
-          })
+          files.push(file.getFile())
         }
       }
+      files = await Promise.all(
+        (
+          await Promise.all(files)
+        ).map(async (e) => {
+          return new Promise(async (resolve, reject) => {
+            const text = await a.readfile(e)
+            resolve({
+              name: e.name.replace(/\.txt$/, ""),
+              text: getLines(e.name.replace(/\.txt$/, ""), text),
+            })
+          })
+        })
+      )
+      // timeEnd("a")
       files = files.filter((e) => e.text.length >= 7)
       document.querySelector(
         ".wordCount"
@@ -152,14 +179,9 @@
       var lines = data
         .split("\n")
         .map((e) => e.trim())
-        .filter(
-          (e) =>
-            !(
-              ls.viewedLists[name.replace(/\.txt$/, "")] ?? []
-            ).includes(e)
-        )
-      document.querySelector(".wordCount").innerText =
-        lines.length + " words"
+        .filter((e) => e)
+        .filter((e) => !(ls.viewedLists[name] ?? []).includes(e))
+      // document.querySelector(".wordCount").innerText =// lines.length + " words"
       return lines
     }
     function get7words(list) {
