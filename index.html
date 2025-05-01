@@ -16,6 +16,7 @@
 </style>
 <button id="loadAllWordLists">setup</button>
 <button id="startGame">start</button>
+<button id="clearViewedWords">clear viewed words</button>
 <h2 class="wordCount"></h2>
 <br />
 <div class="word"></div>
@@ -37,6 +38,10 @@
     }
     a.qs("#loadAllWordLists").onclick = async (e) => {
       ls.folder = await a.getfolder(false)
+      setup()
+    }
+    a.qs("#clearViewedWords").onclick = async (e) => {
+      ls.viewedLists = {}
       setup()
     }
     a.qs("#startGame").onclick = async (e) => {
