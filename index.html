@@ -50,6 +50,7 @@
 <h2 class="wordCount"></h2>
 
 <script>
+  Object.assign(window, console)
   class Timer {
     constructor(tickCb, maxTime, expireCb) {
       this.maxTime = maxTime || Infinity
@@ -176,12 +177,13 @@
       () => {
         a.qs(".timer").textContent = timer.expired
           ? "Time's up!"
-          : timer.paused
-          ? ""
           : timer.formatTimeLeft()
       },
       (ls.timerTime ??= 30) * 1000,
-      playTimeUpSound
+      () => {
+        a.qs("#markerBox").style.display = "none"
+        playTimeUpSound()
+      }
     )
     a.qs("#timerTime").value = ls.timerTime
     a.listen(a.qs("#timerTime"), {
@@ -232,10 +234,11 @@
       showui()
     }
     function showui() {
-      var dist = 800
+      var dist = 400
       var padding = 10
-      var offsetY = 100
-      var offsetX = 10
+      var offsetY = 350
+      var offsetX =
+        a.rect(document.body).w / 2 - ((dist / 3) * 1.5 - padding * 2)
       var size = dist / 3 - padding * 2
       a.qsa("#cat").forEach((e) => e.remove())
       a.qs("#markerBox")?.remove?.()
@@ -251,6 +254,7 @@
         innerHTML: "<h2></h2>",
         textShadow: "0 0 15px white",
         onclick(e) {
+          a.qs("#markerBox").style.display = "block"
           ls.viewedLists[chosenCats[this.catid][0]] ??= []
           showCat(chosenCats[this.catid])
           this.style.textShadow = "0 0 15px red"
@@ -261,38 +265,50 @@
         },
         oncontextmenu(e) {
           e.preventDefault()
-          if (confirm("show example?")) {
-            a.qs(".wordCount").textContent = poprand(
-              chosenCats[this.catid][1]
-            )
-          }
+          reroll(this)
+          // if (confirm("show example?")) {
+          //   a.qs(".wordCount").textContent = poprand(
+          //     chosenCats[this.catid][1]
+          //   )
+          // }
         },
       }
-
+      lastclick = 0
       a.createelem(document.body, "div", {
-        width: (size / 3) * 2 + "px",
-        height: (size / 3) * 2 + "px",
-        backgroundColor: "#353",
-        position: "absolute",
-        display: "flex",
+        width: "100vw",
+        height: "100vh",
+        position: "fixed",
+        top: "0px",
+        left: "0px",
+        backgroundColor: "#3531",
         id: "markerBox",
-        justifyContent: "center",
-        alignItems: "center",
         idx: 0,
+        zIndex: 200,
         canSkip: true,
-        innerHTML:
-          "lclick to mark word as guessed<br><br>right click to mark word as skipped",
         borderRadius: "20px",
+        display: "none",
+        onmouseup(e) {
+          e.preventDefault()
+        },
+        onmousedown(e) {
+          e.preventDefault()
+        },
         onclick(e) {
           e.preventDefault()
+          if (timer.time - lastclick < 150) {
+            return
+          }
+          lastclick = timer.time
           updateWord.call(this, true)
         },
         oncontextmenu(e) {
           e.preventDefault()
+          if (timer.time - lastclick < 150) {
+            return
+          }
+          lastclick = timer.time
           updateWord.call(this, false)
         },
-        top: offsetY + size / 3 / 2 + "px",
-        left: offsetX + size / 3 / 2 + (dist / 3) * 2 + "px",
       })
       function updateWord(isGood) {
         if (!this.words) {
@@ -330,36 +346,14 @@
           )
           if (this.words[0]) this.words[0].classList.add("current")
         }
-        log(this.idx)
         if (this.words.length == 0) {
+          a.qs("#markerBox").style.display = "none"
+          lastclick = 0
           timer.stop()
           a.qsa(".wordCount>word").forEach((e) =>
             e.classList.remove("current")
           )
         }
-        // var startIdx = this.idx
-        // if (this.canSkip)
-        //   words[this.idx].classList.add(isGood ? "guessed" : "passed")
-        // else {
-        //   words[this.idx].classList.remove("passed")
-        //   while (
-        //     a.qs(".passed") &&
-        //     !words[this.idx].classList.contains("passed")
-        //   ) {
-        //     this.idx++
-        //   }
-        //   this.idx--
-        // }
-        // this.idx++
-        // if (this.idx > words.length - 1) {
-        //   this.idx = 0
-        //   this.canSkip = false
-        // }
-        // if (this.idx !== startIdx)
-        //   words[this.idx].style.textShadow = "0 0 15px white"
-        // else {
-        //   timer.stop()
-        // }
       }
       a.createelem(document.body, "div", {
         ...alldata,
@@ -374,7 +368,7 @@
       a.createelem(document.body, "div", {
         ...alldata,
         top: offsetY + dist / 3 + "px",
-        left: dist / 3 + dist / 3 / 2 + "px",
+        left: offsetX + dist / 3 + dist / 3 / 2 + "px",
       })
       a.createelem(document.body, "div", {
         ...alldata,
@@ -408,9 +402,13 @@
       timer.reset()
       timer.start()
     }
-    function reroll(idx) {
+    function reroll(node) {
       var selected = poprand(loadedData)
-      chosenCats[idx] = [selected.name, get7words(selected.text)]
+      chosenCats[node.catid] = [
+        selected.name,
+        get7words(selected.text),
+      ]
+      a.qs("h2", node).textContent = selected.name
     }
 
     async function setup() {

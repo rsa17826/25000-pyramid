@@ -1,4 +1,3 @@
-auto
 automobile
 buggy
 car

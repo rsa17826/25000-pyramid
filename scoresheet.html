@@ -172,6 +172,9 @@
   function recalcScore() {
     var scores = []
     for (var elem of a.qsa("#playerScoreColumn")) {
+      a.qsa("input#c", elem).forEach((e, i) => {
+        e.placeholder = "score " + a.qsa("#c", e.parentElement).length
+      })
       var score = a
         .qsa("input#c", elem)
         .map((e) => Number(e.value || 0) || 0)

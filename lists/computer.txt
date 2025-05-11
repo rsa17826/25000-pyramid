@@ -7,7 +7,6 @@ backup
 bandwidth
 binary
 bit
-bitmap
 blog
 blogger
 bookmark
